@@ -1,11 +1,77 @@
 #include "sort.h"
 
+void swap(int *a, int *b);
+void quick_sort_calc(int *array, ssize_t low, ssize_t high, ssize_t size);
+ssize_t split(int *array, int low, int high, ssize_t size);
+
 /**
- * quick_sort - set pivot, swap compared to pivot
- * @array: list of numbers to sort
+ * quick_sort - sort array using pivot
+ * @array: array of numbers to sort
  * @size: number of entries in array
  */
-void quick_sort(int *array, size_t size)
+void quick_sort(int *array, ssize_t size)
 {
+	quick_sort_calc(array, 0, (size - 1), size);
+}
 
+/**
+ * swap - swaps values for two integers
+ * @a: first integer to swap
+ * @b: second integer to swap
+ */
+void swap(int *a, int *b)
+{
+	int	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+/**
+ * quick_sort_calc - revursive function to do actual sorting
+ * @array: array to sort
+ * @low: start index of array (changes based on recursive step)
+ * @size: number of entries in array
+ */
+void quick_sort_calc(int *array, ssize_t low, ssize_t high, ssize_t size)
+{
+	ssize_t pivot_index;
+
+	if (low < high)
+	{
+		pivot_index = split(array, low, high, size);
+		quick_sort_calc(array, low, (pivot_index - 1), size);
+		quick_sort_calc(array, (pivot_index + 1), high, size);
+	}
+}
+
+/**
+ * split - separates provided values into greater/less than pivot
+ * @array: array to separate
+ * @low: start index of array (can change with recursive step)
+ * @high: end index of array (can change with recursive step)
+ * @size: number of entries in array
+ */
+ssize_t split(int *array, int low, int high, ssize_t size)
+{
+	int pivot_val = array[high];
+	ssize_t i, j;
+
+	i = low;
+
+	for (j = low; j < high; j++)
+	{
+		if (array[j] <= pivot_val)
+		{
+			i++;
+			swap(&array[i], &array[j]);
+			print_array(array, size);
+		}
+	}
+
+	swap(&array[i], &array[high]);
+	print_array(array, size);
+
+	return (i);
 }

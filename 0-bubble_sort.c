@@ -7,7 +7,8 @@
  */
 void bubble_sort(int *array, size_t size)
 {
-	int i, tmp;
+	int tmp;
+	size_t i;
 	bool is_sorted = false;
 
 	while (is_sorted == false)

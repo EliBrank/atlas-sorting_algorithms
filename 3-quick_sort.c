@@ -31,7 +31,8 @@ void swap(int *a, int *b)
 /**
  * quick_sort_calc - revursive function to do actual sorting
  * @array: array to sort
- * @low: start index of array (changes based on recursive step)
+ * @low: start index of array (can change with recursive step)
+ * @high: end index of array (can change with recursive step)
  * @size: number of entries in array
  */
 void quick_sort_calc(int *array, ssize_t low, ssize_t high, ssize_t size)
@@ -52,6 +53,8 @@ void quick_sort_calc(int *array, ssize_t low, ssize_t high, ssize_t size)
  * @low: start index of array (can change with recursive step)
  * @high: end index of array (can change with recursive step)
  * @size: number of entries in array
+ *
+ * Return: next position of pivot
  */
 ssize_t split(int *array, int low, int high, ssize_t size)
 {
@@ -64,9 +67,8 @@ ssize_t split(int *array, int low, int high, ssize_t size)
 	{
 		if (array[j] <= pivot_val)
 		{
-			i++;
 			swap(&array[i], &array[j]);
-			print_array(array, size);
+			i++;
 		}
 	}
 

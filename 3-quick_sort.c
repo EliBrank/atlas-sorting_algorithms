@@ -1,20 +1,20 @@
 #include "sort.h"
 
 void swap(int *a, int *b);
-void quick_sort_calc(int *array, int low, int high, int size);
-int split(int *array, int low, int high, int size);
+void quick_sort_calc(int *array, int low, int high, size_t size);
+int split(int *array, int low, int high, size_t size);
 
 /**
  * quick_sort - sort array using pivot
  * @array: array of numbers to sort
  * @size: number of entries in array
  */
-void quick_sort(int *array, int size)
+void quick_sort(int *array, size_t size)
 {
 	/* array too small to sort */
 	if (size < 2)
 		return;
-	quick_sort_calc(array, 0, (size - 1), size);
+	quick_sort_calc(array, 0, size - 1, size);
 }
 
 /**
@@ -24,7 +24,7 @@ void quick_sort(int *array, int size)
  */
 void swap(int *a, int *b)
 {
-	int	tmp;
+	int tmp;
 
 	tmp = *a;
 	*a = *b;
@@ -38,7 +38,7 @@ void swap(int *a, int *b)
  * @high: end index of array (can change with recursive step)
  * @size: number of entries in array
  */
-void quick_sort_calc(int *array, int low, int high, int size)
+void quick_sort_calc(int *array, int low, int high, size_t size)
 {
 	int pivot_index;
 
@@ -59,24 +59,24 @@ void quick_sort_calc(int *array, int low, int high, int size)
  *
  * Return: next position of pivot
  */
-int split(int *array, int low, int high, int size)
+int split(int *array, int low, int high, size_t size)
 {
 	int pivot_val = array[high];
-	int i, j;
+    int i, j;
 
-	i = low;
+    i = low - 1;
 
-	for (j = low; j < high; j++)
-	{
-		if (array[j] < pivot_val)
-		{
-			swap(&array[i], &array[j]);
-			i++;
-		}
-	}
+    for (j = low; j < high; j++)
+    {
+        if (array[j] <= pivot_val)
+        {
+            i++;
+            swap(&array[i], &array[j]);
+        }
+    }
 
-	swap(&array[i], &array[high]);
-	print_array(array, size);
+    swap(&array[i + 1], &array[high]);
+    print_array(array, size);
 
-	return i;
+    return (i + 1);
 }

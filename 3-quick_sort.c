@@ -62,21 +62,21 @@ void quick_sort_calc(int *array, int low, int high, size_t size)
 int split(int *array, int low, int high, size_t size)
 {
 	int pivot_val = array[high];
-    int i, j;
+	int i, j;
 
-    i = low - 1;
+	i = low - 1;
 
-    for (j = low; j < high; j++)
-    {
-        if (array[j] <= pivot_val)
-        {
-            i++;
-            swap(&array[i], &array[j]);
-        }
-    }
+	for (j = low; j < high; j++)
+	{
+		if (array[j] <= pivot_val)
+		{
+			i++;
+			swap(&array[i], &array[j]);
+		}
+	}
 
-    swap(&array[i + 1], &array[high]);
-    print_array(array, size);
+	swap(&array[i + 1], &array[high]);
+	print_array(array, size);
 
-    return (i + 1);
+	return (i + 1);
 }
